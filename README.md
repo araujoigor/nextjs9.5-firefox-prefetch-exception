@@ -1,30 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Nextjs 9.5 Firefox Prefetch Exception
 
-## Getting Started
+This repository is an example on how to reproduce the `Uncaught Exeception` error on Firefox caused by `Nextjs 9.5` prefetching. This behavior didn't exist in previous versions.
 
-First, run the development server:
+Basically, if you use prefetching on a dynamic route, for whatever reason, firefox throws an exception due to the prefetch `link` tag. It happens 100% of the times.
+
+This is specifically annoying since it may trigger alerts on monitoring platforms such as `Sentry`. If you have enough links, it may even trigger rate limiting on these services.
+
+Other than that, no major issues arise (the prefetching behavior works normally).
+
+An example image is given below.
+
+![Example of the issue](./public/example.png)
+
+Sometimes the behavior is reproduceable on development mode. But a 100% of the times it is reproduceable on production builds.
+
+
+### To reproduce:
+
+1. Run
 
 ```bash
-npm run dev
-# or
-yarn dev
+yarn install
+yarn build
+yarn serve
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. Open https://localhost:3000 on firefox with the console open.
+3. Check the errors on the console.
