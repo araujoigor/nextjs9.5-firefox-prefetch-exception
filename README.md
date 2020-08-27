@@ -22,7 +22,7 @@ Sometimes the behavior is reproduceable on development mode. But a 100% of the t
 ```bash
 yarn install
 yarn build
-yarn serve
+yarn start
 ```
 
 2. Open https://localhost:3000 on firefox with the console open.
